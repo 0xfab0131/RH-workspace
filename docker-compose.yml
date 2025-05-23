@@ -1,0 +1,26 @@
+services:
+  latex:
+    image: blang/latex:ctanfull
+    volumes:
+      - .:/data
+    working_dir: /data
+  python:
+    build:
+      context: ./python
+    volumes:
+      - ./python:/app
+      - ./figures:/app/figures # Mount figures directory for output
+      - ./tables:/app/tables # Mount tables directory for output
+    working_dir: /app
+  lean:
+    build:
+      context: ./lean
+    volumes:
+      - ./lean:/home/lean # Mount local ./lean to /home/lean in the container
+    working_dir: /home/lean # Set working directory in the container
+  coq:
+    build:
+      context: ./coq
+    volumes:
+      - ./coq:/workspace
+    working_dir: /workspace
